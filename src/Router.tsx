@@ -4,6 +4,8 @@ import ErrorPage from './components/ErrorPage';
 import Shop from './components/Shop';
 import About from './components/About';
 import CartPage from './components/CartPage';
+import Hero from './components/Hero';
+import ShopCard, { loader as shopLoader } from './components/ShopCard';
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -11,11 +13,23 @@ export default function Router() {
       path: '/',
       element: <App />,
       errorElement: <ErrorPage />,
-    },
-    {
-      path: 'shop',
-      element: <Shop />,
-      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <Hero />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: 'shop',
+          element: <Shop />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: 'shop/:itemId',
+          element: <ShopCard />,
+          loader: shopLoader,
+        },
+      ],
     },
     {
       path: 'about',
