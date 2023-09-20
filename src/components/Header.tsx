@@ -15,15 +15,12 @@ export default function Header() {
             </Link>
           </div>
           <nav className="mx-6 flex items-center justify-items-center space-x-4 lg:space-x-6 hidden md:block">
-            <Button variant="ghost">
-              <Link to="/">Home</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link to="shop">Shop</Link>
-            </Button>
-            <Button variant="ghost">
-              <Link to="about">About</Link>
-            </Button>
+            <Link to="/">
+              <Button variant="ghost">Home</Button>
+            </Link>
+            <Link to="shop">
+              <Button variant="ghost">Shop</Button>
+            </Link>
           </nav>
           <Button
             variant="ghost"

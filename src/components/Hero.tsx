@@ -5,6 +5,7 @@ import { ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ItemList from './ItemList';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const [products, setProducts] = useState(null);
@@ -32,14 +33,16 @@ export default function Hero() {
             <div className=" h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black bg-secondary/60 p-4 rounded-lg">
                 Dream Home
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full py-6 text-xl"
-                >
-                  <ShoppingBag className="mr-2" />
-                  Shop Now
-                </Button>
+                <Link to="shop">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full py-6 text-xl"
+                  >
+                    <ShoppingBag className="mr-2" />
+                    Shop Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,8 +1,9 @@
 // import { Item } from '@/types';
 import { Card, CardContent, CardFooter } from './ui/card';
 import Container from './Container';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, Form } from 'react-router-dom';
 import axios from 'axios';
+import { Button } from './ui/button';
 
 // interface ItemCard {
 //   data: Item;
@@ -21,22 +22,42 @@ export default function ShopCard() {
   const { item } = useLoaderData();
   return (
     <Container>
-      <Card className="border-0 ">
-        <CardContent className="pt-4">
-          <div className=" aspect-square relative bg-foreground/5 rounded-lg">
-            <img
-              src={item.image}
-              className=" aspect-square object-cover rounded-lg transition-all duration-300 hover:scale-105"
-            />
-          </div>
-        </CardContent>
-        <CardFooter className=" flex-col items-start gap-2">
-          <div>
-            <p className=" font-semibold text-lg">{item.title}</p>
-            <p className=" text-sm text-primary/80 space-y-3"> ${item.price}</p>
-          </div>
-        </CardFooter>
-      </Card>
+      <div className="space-y-10 pb-10">
+        <div className="p-4 sm:p-6 lg:p-8 rounded-lg overflow-hidden flex justify-center">
+          <Card className=" flex border-0  ">
+            <CardContent className="pt-4">
+              <div className=" aspect-square relative bg-foreground/5 rounded-lg">
+                <img
+                  src={item.image}
+                  className=" aspect-square object-cover rounded-lg transition-all duration-300 hover:scale-105"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className=" flex-col  justify-center items-center">
+              <div className=" flex flex-col gap-6 bg-slate-100 items-center">
+                <p className=" font-semibold text-lg">{item.title}</p>
+                <p className=" text-base text-center">{item.description}</p>
+                <div className="flex justify-between pb-3 items-center gap-10">
+                  <p className=" text-sm text-primary/80 space-y-3 ml-2">
+                    {' '}
+                    ${item.price}
+                  </p>
+                  <Form
+                    method="post"
+                    action="cart"
+                    className=" flex gap-2 mr-2"
+                  >
+                    <input type="number" name="quantity" min="0" />
+                    <Button size="sm" type="submit">
+                      Add To Cart
+                    </Button>
+                  </Form>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
     </Container>
   );
 }
