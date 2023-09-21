@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import localforage from 'localforage';
 
-export function useLocalForage<T>(key: string, initialValue: T | (() => T)) {
-  const [value, setValue] = useState(async () => {
-    const storage = await localforage.getItem(key);
-    if (storage != null) return storage;
+export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
+  const [value, setValue] = useState<T>(() => {
+    const jsonValue = localStorage.getItem(key);
+    if (jsonValue != null) return JSON.parse(jsonValue);
 
     if (typeof initialValue === 'function') {
       return (initialValue as () => T)();
@@ -14,7 +13,8 @@ export function useLocalForage<T>(key: string, initialValue: T | (() => T)) {
   });
 
   useEffect(() => {
-    localforage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
+
   return [value, setValue] as [typeof value, typeof setValue];
 }
