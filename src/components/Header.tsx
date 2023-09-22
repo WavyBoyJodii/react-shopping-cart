@@ -3,8 +3,10 @@ import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { Menu, ShoppingCart } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { useShoppingCart } from '@/context/ShoppingCartContext';
 
 export default function Header() {
+  const { cartQuantity } = useShoppingCart();
   return (
     <header className="sm: flex sm: justify-between py-3 px-4 border-b">
       <Container>
@@ -22,17 +24,20 @@ export default function Header() {
               <Button variant="ghost">Shop</Button>
             </Link>
           </nav>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="mr-2"
-            aria-label="Shopping Cart"
-          >
-            <span className="sr-only">Shopping Cart</span>
-            <Link to="cart">
+          <Link to="cart">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="mr-2"
+              aria-label="Shopping Cart"
+            >
+              <span className="sr-only">Shopping Cart</span>
               <ShoppingCart />
-            </Link>
-          </Button>
+              <div className="rounded-circle bg-danger d-flex justify-content-center align-items-center text-blue-500  text-sm w-6 h-6 absolute bottom-0 right-7 animate-pulse ">
+                {cartQuantity}
+              </div>
+            </Button>
+          </Link>
           <Sheet>
             <SheetTrigger className="md:hidden">
               <Menu className="h-6 w-6 md:hidden" />
@@ -44,9 +49,6 @@ export default function Header() {
                 </Link>
                 <Link className="block px-2 py-1 text-lg" to="shop">
                   Shop
-                </Link>
-                <Link className="block px-2 py-1 text-lg" to="about">
-                  About
                 </Link>
               </nav>
             </SheetContent>
