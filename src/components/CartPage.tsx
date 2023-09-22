@@ -18,9 +18,13 @@ export default function CartPage() {
           <div className=" text-lg flex flex-col place-items-center justify-center gap-10">
             <div>
               Total: $
-              {cartItems.reduce((total, cartItem) => {
-                return total + (cartItem.price || 0) * cartItem.quantity;
-              }, 0)}
+              {Math.round(
+                (cartItems.reduce((total, cartItem) => {
+                  return total + (cartItem.price || 0) * cartItem.quantity;
+                }, 0) +
+                  Number.EPSILON) *
+                  100
+              ) / 100}
             </div>
             <a
               href="https://www.youtube.com/watch?v=bLE8MNL4QFY"

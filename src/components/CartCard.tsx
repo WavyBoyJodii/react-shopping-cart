@@ -34,7 +34,7 @@ export default function CartCard({ id, quantity }: CartCardProps) {
             />
           </div>
           <div className=" flex flex-col items-start gap-2 w-52">
-            <div className=" text-sm md:text-base font-semibold">
+            <div className=" text-sm md:text-base font-semibold overflow-hidden">
               {' '}
               {item.title}
             </div>
@@ -45,7 +45,9 @@ export default function CartCard({ id, quantity }: CartCardProps) {
           <div className="grid grid-cols-1 gap-10">
             <div className=" flex gap-6">
               <div className="text-sm md:text-base">
-                ${item.price * quantity}
+                $
+                {Math.round((item.price * quantity + Number.EPSILON) * 100) /
+                  100}
               </div>
               <Button
                 size="sm"
@@ -68,7 +70,7 @@ export default function CartCard({ id, quantity }: CartCardProps) {
               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => increaseCartQuantity(item.id)}
+                onClick={() => increaseCartQuantity(item.id, item.price)}
               >
                 +
               </Button>
